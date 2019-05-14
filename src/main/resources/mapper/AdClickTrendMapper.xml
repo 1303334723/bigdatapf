@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.behavioranalysis.mapper.AdClickTrendMapper" >
+  <resultMap id="BaseResultMap" type="com.behavioranalysis.pojo.AdClickTrend" >
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="hour" property="hour" jdbcType="VARCHAR" />
+    <result column="minute" property="minute" jdbcType="VARCHAR" />
+    <result column="ad_id" property="adId" jdbcType="INTEGER" />
+    <result column="click_count" property="clickCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    date, hour, minute, ad_id, click_count
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.behavioranalysis.pojo.AdClickTrendExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ad_click_trend
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.behavioranalysis.pojo.AdClickTrendExample" >
+    delete from ad_click_trend
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.behavioranalysis.pojo.AdClickTrend" >
+    insert into ad_click_trend (date, hour, minute, 
+      ad_id, click_count)
+    values (#{date,jdbcType=VARCHAR}, #{hour,jdbcType=VARCHAR}, #{minute,jdbcType=VARCHAR}, 
+      #{adId,jdbcType=INTEGER}, #{clickCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.behavioranalysis.pojo.AdClickTrend" >
+    insert into ad_click_trend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="hour != null" >
+        hour,
+      </if>
+      <if test="minute != null" >
+        minute,
+      </if>
+      <if test="adId != null" >
+        ad_id,
+      </if>
+      <if test="clickCount != null" >
+        click_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="hour != null" >
+        #{hour,jdbcType=VARCHAR},
+      </if>
+      <if test="minute != null" >
+        #{minute,jdbcType=VARCHAR},
+      </if>
+      <if test="adId != null" >
+        #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.behavioranalysis.pojo.AdClickTrendExample" resultType="java.lang.Integer" >
+    select count(*) from ad_click_trend
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ad_click_trend
+    <set >
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hour != null" >
+        hour = #{record.hour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minute != null" >
+        minute = #{record.minute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adId != null" >
+        ad_id = #{record.adId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clickCount != null" >
+        click_count = #{record.clickCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ad_click_trend
+    set date = #{record.date,jdbcType=VARCHAR},
+      hour = #{record.hour,jdbcType=VARCHAR},
+      minute = #{record.minute,jdbcType=VARCHAR},
+      ad_id = #{record.adId,jdbcType=INTEGER},
+      click_count = #{record.clickCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

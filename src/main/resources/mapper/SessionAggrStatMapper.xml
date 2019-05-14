@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.behavioranalysis.mapper.SessionAggrStatMapper" >
+  <resultMap id="BaseResultMap" type="com.behavioranalysis.pojo.SessionAggrStat" >
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="session_count" property="sessionCount" jdbcType="INTEGER" />
+    <result column="1s_3s" property="s1_s3" jdbcType="DOUBLE" />
+    <result column="4s_6s" property="s4_s6" jdbcType="DOUBLE" />
+    <result column="7s_9s" property="s7_s9" jdbcType="DOUBLE" />
+    <result column="10s_30s" property="s10_s30" jdbcType="DOUBLE" />
+    <result column="30s_60s" property="s30_s60" jdbcType="DOUBLE" />
+    <result column="1m_3m" property="m1_m3" jdbcType="DOUBLE" />
+    <result column="3m_10m" property="m3_m10" jdbcType="DOUBLE" />
+    <result column="10m_30m" property="m10_m30" jdbcType="DOUBLE" />
+    <result column="30m" property="m30" jdbcType="DOUBLE" />
+    <result column="1_3" property="s1_3" jdbcType="DOUBLE" />
+    <result column="4_6" property="s4_6" jdbcType="DOUBLE" />
+    <result column="7_9" property="s7_9" jdbcType="DOUBLE" />
+    <result column="10_30" property="s10_30" jdbcType="DOUBLE" />
+    <result column="30_60" property="s30_60" jdbcType="DOUBLE" />
+    <result column="60" property="s60" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, session_count, 1s_3s, 4s_6s, 7s_9s, 10s_30s, 30s_60s, 1m_3m, 3m_10m, 10m_30m, 
+    30m, 1_3, 4_6, 7_9, 10_30, 30_60, 60
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.behavioranalysis.pojo.SessionAggrStatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from session_aggr_stat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.behavioranalysis.pojo.SessionAggrStatExample" >
+    delete from session_aggr_stat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <select id="countByExample" parameterType="com.behavioranalysis.pojo.SessionAggrStatExample" resultType="java.lang.Integer" >
+    select count(*) from session_aggr_stat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>

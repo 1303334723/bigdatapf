@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BigdataPF-session分析</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/normalize.css}" href="../static/css/normalize.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}" href="../static/css/themify-icons.css">
+    <link rel="stylesheet" th:href="@{/css/pe-icon-7-filled.css}" href="../static/css/pe-icon-7-filled.css">
+    <link rel="stylesheet" th:href="@{/css/flag-icon.min.css}" href="../static/css/flag-icon.min.css">
+    <link rel="stylesheet" th:href="@{/css/cs-skin-elastic.css}" href="../static/css/cs-skin-elastic.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+    <link rel="stylesheet" th:href="@{/css/charts/chartist.min.css}" href="../static/css/charts/chartist.min.css">
+    <link rel="stylesheet" th:href="@{/css/lib/vector-map/jqvmap.min.css}" href="../static/css/lib/vector-map/jqvmap.min.css">
+    <link rel="stylesheet" th:href="@{/css/lib/datatable/dataTables.bootstrap.min.css}" href="../static/css/lib/datatable/dataTables.bootstrap.min.css">
+
+
+    <script th:src="@{/js/vendor/jquery-3.3.1.js}" src="../static/js/vendor/jquery-3.3.1.js"></script>
+    <!-- Scripts -->
+    <script th:src="@{/js/vendor/jquery-2.1.4.min.js}" src="../static/js/vendor/jquery-2.1.4.min.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../static/js/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/jquery.matchHeight.min.js}" src="../static/js/jquery.matchHeight.min.js"></script>
+    <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+    <script th:src="@{/js/echarts.min.js}" src="../static/js/echarts.min.js"></script>
+
+    <script th:src="@{/js/lib/data-table/datatables.min.js}" src="../static/js/lib/data-table/datatables.min.js"></script>
+    <script th:src="@{/js/lib/data-table/dataTables.bootstrap.min.js}" src="../static/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script th:src="@{/js/lib/data-table/dataTables.buttons.min.js}" src="../static/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.bootstrap.min.js}" src="../static/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script th:src="@{/js/lib/data-table/jszip.min.js}" src="../static/js/lib/data-table/jszip.min.js"></script>
+    <script th:src="@{/js/lib/data-table/vfs_fonts.js}" src="../static/js/lib/data-table/vfs_fonts.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.html5.min.js}" src="../static/js/lib/data-table/buttons.html5.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.print.min.js}" src="../static/js/lib/data-table/buttons.print.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.colVis.min.js}" src="../static/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script th:src="@{/js/init/datatables-init.js}" src="../static/js/init/datatables-init.js"></script>
+
+    <script th:src="@{/laydate/laydate.js}" src="../static/laydate/laydate.js"></script>
+
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 10px;
+            right: 30px;
+            bottom: 10px;
+            left: 30px;
+            height: 100%;
+            display: none;
+        }
+        .modal-header {
+            display: flex;
+            padding: 0.3rem;
+        }
+        .modal-body {
+            padding: 0.3rem;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>
+                        <a th:href="@{/main-page}">
+                            <i class="menu-icon fa fa-laptop"></i>
+                            首页
+                        </a>
+                    </li>
+
+                    <li class="menu-title">统计分析</li><!-- /.menu-title -->
+
+                    <li>
+                        <a th:href="@{/advertisement}">
+                            <i class="menu-icon fa fa-glass"></i>
+                            广告流量
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a th:href="@{/session-analysis}">
+                            <i class="menu-icon fa fa-area-chart"></i>
+                            session分析
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/page_convert_rate}">
+                            <i class="menu-icon fa fa-th"></i>
+                            页面单跳转化率
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/hot-goods}">
+                            <i class="menu-icon fa fa-bar-chart"></i>
+                            热门商品
+                        </a>
+                    </li>
+
+                    <li class="menu-title">集群管理</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="http://sparkupgrade1:50070" target=”_blank”>
+                            <i class="menu-icon fa fa-folder"></i>
+                            HDFS
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://sparkupgrade1:8088" target=”_blank”>
+                            <i class="menu-icon fa fa-cogs"></i>
+                            Yarn
+                        </a>
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./"><img th:src="@{/images/logo.png}" src="../static/images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img th:src="@{/images/logo2.png}" src="../static/images/logo2.png" alt="Logo"></a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+
+                        <div class="dropdown for-notification">
+
+                        </div>
+
+                        <div class="dropdown for-message">
+
+                    </div>
+
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" th:src="@{/images/admin.jpg}" src="../static/images/admin.jpg" alt="User Avatar">
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        <!-- Breadcrumbs-->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1 id="yesteDay">1970-01-01</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+
+                                <ol class="breadcrumb text-right">
+                                    <li><button onclick='showAddTaskWindow();' type="button" class="btn btn-outline-primary">+ 新建task</button></li>
+                                    <li><button onclick='getAllSessionTask();' type="button" class="btn btn-outline-success"> task列表</button></li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.breadcrumbs-->
+        <!-- Content -->
+        <div class="content">
+            <div class="animated fadeIn">
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">session访问时长范围占比</h4>
+                                <div class="flot-container">
+                                    <div id="session-times-rate" style="width:100%;height:275px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">session访问步长范围占比</h4>
+                                <div class="flot-container">
+                                    <div id="session-steps-rate" style="width:100%;height:275px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /# card -->
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Top10品类</h4>
+                                <div class="flot-container" style="height:500px;padding: 0px 0px 0px;">
+                                    <div id="top10-category" style="width:100%;height:500px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /# card -->
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">热门品类的点击Top10session</strong>
+                            </div>
+                            <div class="card-body">
+                                <table id="cate-top10-session" class="table table-striped table-bordered">
+
+                                    <thead>
+                                    <tr>
+                                        <th>CategoryId</th>
+                                        <th>SessionId</th>
+                                        <th>ClickCount</th>
+                                        <th>Operate</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- /# card -->
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">随机抽取的session</strong>
+                            </div>
+                            <div class="card-body">
+                                <table id="random-extract-session" class="table table-striped table-bordered">
+
+                                    <thead>
+                                    <tr>
+                                        <th>SessionId</th>
+                                        <th>StartTime</th>
+                                        <th>SearchKeywords</th>
+                                        <th>ClickCategoryIds</th>
+                                        <th>Operate</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- /# card -->
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+
+            </div><!-- .animated -->
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+        <!-- Footer -->
+        <footer class="site-footer">
+        </footer>
+        <!-- /.site-footer -->
+    </div>
+    <!-- /#right-panel -->
+
+    <!-- add task 模态窗start -->
+    <div id="add-task-modal" class="modal" style="top: 80px; display: none;right: 400px;left: 400px;">
+        <div class="modal-content">
+            <header class="modal-header" style="padding: 0.8rem;">
+                <h4 id="modal-title">新建session task</h4>
+                <span id="add-task-close-modal" class="close">×</span>
+            </header>
+            <div class="modal-body">
+                <div class="col-lg-6" style="max-width: 100%;">
+
+                    <form id="add-task-form" action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <input type="hidden" id="task_type" value="session分析" name="task_type"/>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Task Name</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="task_name" name="task_name"class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Min Age</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="startAge" name="startAge" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Max Age</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="endAge" name="endAge" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Date Range</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="dateRange" name="dateRange" placeholder=" - " class="form-control">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button id="submit-task" type="submit" class="btn btn-lg btn-info btn-block">
+                                <span id="submit-word">提交执行</span>
+                            </button>
+                        </div>
+
+                    </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+    </div>
+    </div>
+
+    <script>
+        //日期范围
+        laydate.render({
+            elem: '#dateRange',
+            range: true
+        });
+        function showAddTaskWindow() {
+            $("#add-task-modal").css("display", "block");
+        }
+
+        $('#submit-task').click(function () {
+            $('#submit-task').attr('disabled', true);
+            $('#submit-word').html("正在提交。。。");
+            var data = $('#add-task-form').serialize();
+            var submitData = decodeURIComponent(data, true);
+            $.ajax({
+                url: getContextPath() + '/task/sessiontask/add',
+                data: submitData,
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("addSessionTask error");
+                // 出现异常
+            }
+            function succFunction(data) {
+                // ajax
+                $('#submit-word').html("后台已开始执行该任务");
+                setTimeout(
+                    function() {
+                        $("#add-task-modal").css("display", "none");
+                        // 将add-task-modal新建任务窗口初始化
+                        // task_name startAge endAge dateRange submit-word
+                        $("#task_name").val("");
+                        $("#startAge").val("");
+                        $("#endAge").val("");
+                        $("#dateRange").val("");
+                        $("#submit-word").html("提交执行");
+                        $('#submit-task').attr('disabled', false);
+                    },
+                    2000);
+            }
+        });
+    </script>
+    <!-- add task 模态窗end -->
+
+    <!-- task详情模态窗start -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h4 id="task-modal-title">session分析task</h4>
+                <span id="task-close-modal" class="close">×</span>
+            </header>
+            <div class="modal-body">
+                <table id="all-session-task" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>TaskId</th>
+                        <th>TaskName</th>
+                        <th>CreateTime</th>
+                        <th>StartTime</th>
+                        <th>FinishTime</th>
+                        <th>TaskStatus</th>
+                        <th>TaskParam</th>
+                        <th>Oprate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- task详情模态窗end -->
+
+    <!-- session详情模态窗start -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <span id="close-modal" class="close">×</span>
+            </header>
+            <div class="modal-body">
+                <table id="session-detail" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>UserId</th>
+                        <th>SessionId</th>
+                        <th>PageId</th>
+                        <th>ActionTime</th>
+                        <th>SearchKeyword</th>
+                        <th>ClickCategoryId</th>
+                        <th>ClickProductId</th>
+                        <th>OrderCategoryIds</th>
+                        <th>OrderProductIds</th>
+                        <th>payCategoryIds</th>
+                        <th>payProductIds</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- session详情模态窗end -->
+
+
+    <script type="text/javascript">
+        // session时长范围占比
+        var sesseionTimes = echarts.init(document.getElementById('session-times-rate'));
+        var data = genData();
+        sesseionTimes.setOption({
+            title : {
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 180,
+                top: 20,
+                bottom: 20,
+                data: ['m30','m10_m30','m3_m10','m1_m3','s30_s60','s10_s30','s7_s9','s4_s6','s1_s3'],
+                selected: data.selectedTimes
+            },
+            series : [
+                {
+                    name: '时间范围',
+                    type: 'pie',
+                    radius: ['35%', '70%'],
+                    center: ['35%', '50%'],
+
+                    data:[
+                        {name: 's1_s3', value: 0},
+                        {name: 's4_s6', value: 0},
+                        {name: 's7_s9', value: 0.1},
+                        {name: 's10_s30', value: 0},
+                        {name: 's30_s60', value: 0.3},
+                        {name: 'm1_m3', value: 0.03},
+                        {name: 'm3_m10', value: 0.01},
+                        {name: 'm10_m30', value: 0.06},
+                        {name: 'm30', value: 0.5}
+                    ]
+                }
+            ]
+        });
+        // session步长范围占比
+        var sesseionSteps = echarts.init(document.getElementById('session-steps-rate'));
+        sesseionSteps.setOption({
+            title : {
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                type: 'scroll',
+                orient: 'vertical',
+                right: 180,
+                top: 20,
+                bottom: 20,
+                data: ['s1_3','s4_6','s7_9','s10_30','s30_60','s60'],
+                selected: data.selectedSteps
+            },
+            series : [
+                {
+                    name: '步长范围',
+                    type: 'pie',
+                    radius: ['35%', '70%'],
+                    center: ['35%', '50%'],
+                    data:[
+                        {name: 's1_3', value: 0.09},
+                        {name: 's4_6', value: 0.14},
+                        {name: 's7_9', value: 0.17},
+                        {name: 's10_30', value: 0.6},
+                        {name: 's30_60', value: 0.5},
+                        {name: 's60', value: 0.04}
+                    ]
+                }
+            ]
+        });
+        // Top10Category
+        var top10Cate = echarts.init(document.getElementById('top10-category'));
+        var seriesLabel = {
+            normal: {
+                show: true,
+                textBorderColor: '#333',
+                textBorderWidth: 2
+            }
+        };
+        option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['clickCount', 'orderCount', 'payCount']
+            },
+            grid: {
+                top: '8%',
+                left: '2%',
+                right: '10%',
+                bottom: '1%',
+                containLabel: true
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'value',
+                name: 'Counts',
+                axisLabel: {
+                    formatter: '{value}'
+                }
+            },
+            yAxis: {
+                type: 'category',
+                name: 'CategoryId',
+                inverse: true,
+                data: ['1', '2', '3', '4', '5', '6', '7', '8', '9','10'],
+            },
+            series: [
+                {
+                    name: 'clickCount',
+                    type: 'bar',
+                    data: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200],
+                    label: seriesLabel,
+                    markPoint: {
+                        symbolSize: 1,
+                        symbolOffset: [0, '50%'],
+                        label: {
+                            normal: {
+                                formatter: '{a|{a}\n}{b|{b} }{c|{c}}',
+                                backgroundColor: 'rgb(242,242,242)',
+                                borderColor: '#aaa',
+                                borderWidth: 1,
+                                borderRadius: 4,
+                                padding: [4, 10],
+                                lineHeight: 26,
+
+                                position: 'right',
+                                distance: 20,
+                                rich: {
+                                    a: {
+                                        align: 'center',
+                                        color: '#fff',
+                                        fontSize: 18,
+                                        textShadowBlur: 2,
+                                        textShadowColor: '#000',
+                                        textShadowOffsetX: 0,
+                                        textShadowOffsetY: 1,
+                                        textBorderColor: '#333',
+                                        textBorderWidth: 2
+                                    },
+                                    b: {
+                                        color: '#333'
+                                    },
+                                    c: {
+                                        color: '#ff8811',
+                                        textBorderColor: '#000',
+                                        textBorderWidth: 1,
+                                        fontSize: 22
+                                    }
+                                }
+                            }
+                        },
+                        data: [
+                            {type: 'max', name: 'max counts: '},
+                            {type: 'min', name: 'min counts: '}
+                        ]
+                    }
+                },
+                {
+                    name: 'orderCount',
+                    type: 'bar',
+                    label: seriesLabel,
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+                },
+                {
+                    name: 'payCount',
+                    type: 'bar',
+                    label: seriesLabel,
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+                }
+            ]
+        };
+        top10Cate.setOption(option);
+
+        $(document).ready(function() {
+            $('#session-detail').DataTable({
+                "scrollY": "450px",
+                "scrollX": true,
+                "scrollCollapse": true,
+                "paging": false,
+                bFilter: false
+            });
+            $('#all-session-task').DataTable({
+            });
+            var today = new Date();
+            var oneday = 1000 * 60 * 60 * 24;
+            var begindate = new Date(today - oneday).Format("yyyyMMdd");
+            var yesteDay = new Date(today - oneday).Format("yyyy-MM-dd");
+            $('#yesteDay').html(yesteDay);
+
+            getSessionASByTaskId(begindate);
+            getTop10CategoryByTaskId(begindate);
+            getTop10CategorySessionByTaskId(begindate);
+            getSessionRandomExtractByTaskId(begindate);
+        } );
+
+        $("#close-modal").click(function () {
+            $("#modal").css("display", "none");
+        });
+
+        $("#task-close-modal").click(function () {
+            $("#task-modal").css("display", "none");
+        });
+
+        $("#add-task-close-modal").click(function () {
+            $("#add-task-modal").css("display", "none");
+        });
+
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S": this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+        // session步长时长范围占比 ajax请求
+        function getSessionASByTaskId(begindate) {
+            $.ajax({
+                url: getContextPath() + '/session/session-aggr-stats/' + begindate,
+                type: 'GET',
+                dataType: 'json',
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("getSessionASByTaskId error");
+            }
+            function succFunction(data) {
+                var selectedTimes = {
+                    'm30':data.m30 > 0,'m10_m30':data.m10_m30 > 0,
+                    'm3_m10':data.m3_m10 > 0,'m1_m3':data.m1_m3 > 0,
+                    's10_s30':data.s10_s30 > 0,'s30_s60':data.s30_s60 > 0,
+                    's7_s9':data.s7_s9 > 0,'s4_s6':data.s4_s6 > 0,
+                    's1_s3':data.s1_s3 > 0
+                }
+                sesseionTimes.setOption({
+                    legend: {
+                        data: ['m30','m10_m30','m3_m10','m1_m3','s30_s60','s10_s30','s7_s9','s4_s6','s1_s3'],
+                        selected: selectedTimes
+                    },
+                    series : [
+                        {
+                            data:[
+                                {name: 's1_s3', value: data.s1_s3},
+                                {name: 's4_s6', value: data.s4_s6},
+                                {name: 's7_s9', value: data.s7_s9},
+                                {name: 's10_s30', value: data.s10_s30},
+                                {name: 's30_s60', value: data.s30_s60},
+                                {name: 'm1_m3', value: data.m1_m3},
+                                {name: 'm3_m10', value: data.m3_m10},
+                                {name: 'm10_m30', value: data.m10_m30},
+                                {name: 'm30', value: data.m30}
+                            ]
+                        }
+                    ]
+                });
+                var selectedSteps = {
+                    's1_3':data.s1_3 > 0,'s4_6':data.s4_6 > 0,
+                    's7_9':data.s7_9 > 0,'s10_30':data.s10_30 > 0,
+                    's30_60':data.s10_s30 > 0,'s60':data.s30_s60 > 0
+                };
+                sesseionSteps.setOption({
+                    legend: {
+                        data: ['s1_3','s4_6','s7_9','s10_30','s30_60','s60'],
+                        selected: selectedSteps
+                    },
+                    series : [
+                        {
+                            data:[
+                                {name: 's1_3', value: data.s1_3},
+                                {name: 's4_6', value: data.s4_6},
+                                {name: 's7_9', value: data.s7_9},
+                                {name: 's10_30', value: data.s10_30},
+                                {name: 's30_60', value: data.s30_60},
+                                {name: 's60', value: data.s60}
+                            ]
+                        }
+                    ]
+                });
+            }
+        }
+
+        function getTop10CategoryByTaskId(begindate) {
+            $.ajax({
+                url: getContextPath() + '/session/top10-category/' + begindate,
+                type: 'GET',
+                dataType: 'json',
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("getTop10CategoryByTaskId error");
+            }
+            function succFunction(data) {
+                //var json = JSON.stringify(data);
+                //alert('getTop10CategoryByTaskId: ' + json);
+                var categoryIds = [];
+                var clickCounts = [];
+                var orderCounts = [];
+                var payCounts = [];
+                $.each(data, function (idx, obj) {
+                    categoryIds.push(obj.categoryId);
+                    clickCounts.push(obj.clickCount);
+                    orderCounts.push(obj.orderCount);
+                    payCounts.push(obj.payCount);
+                });
+                top10Cate.setOption({
+                    yAxis: {
+                        data: categoryIds,
+                    },
+                    series: [
+                        {
+                            name: 'clickCount',
+                            data: clickCounts
+                        },
+                        {
+                            name: 'orderCount',
+                            data: orderCounts
+                        },
+                        {
+                            name: 'payCount',
+                            data: payCounts
+                        }
+                    ]
+                });
+            }
+        }
+
+        function getTop10CategorySessionByTaskId(begindate) {
+            if ($.fn.dataTable.isDataTable('#cate-top10-session')) {
+                $('#cate-top10-session').DataTable().destroy();
+            }
+            $('#cate-top10-session').DataTable({
+                ajax: {
+                    url: getContextPath() + '/session/top10-category-session/' + begindate,
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        "data" : "categoryId",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "sessionId",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "clickCount",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "sessionId",
+                        "orderable": false,
+                        "sClass": "text-center",
+                        "render" : function (data, type, row, meta) {
+                            /*添加onclick后运行报错:
+                            Uncaught ReferenceError: xxx is not defined, 或者 Uncaught SyntaxError: Unexpected token }
+                        如果是报这两种错误,就是引号的问题,需要转义.
+                        总结: 需要使用到 \ 来转义,*/
+                            return "<button onclick='getSessionDetailBySessionId(\""+data+"\");' type='button' class='btn btn-outline-success'>detail</button>";
+                        }
+                    }
+                ]
+            });
+        }
+        function getSessionRandomExtractByTaskId(begindate) {
+            if ($.fn.dataTable.isDataTable('#random-extract-session')) {
+                $('#random-extract-session').DataTable().destroy();
+            }
+            $('#random-extract-session').DataTable({
+                ajax: {
+                    url: getContextPath() + '/session/session-random-extract/' + begindate,
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        "data" : "sessionId",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "startTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "searchKeywords",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "clickCategoryIds",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "sessionId",
+                        "orderable": false,
+                        "sClass": "text-center",
+                        "render" : function (data, type, row, meta) {
+                            return "<button onclick='getSessionDetailBySessionId(\""+data+"\");' type='button' class='btn btn-outline-success'>detail</button>";
+                        }
+                    }
+                ]
+            });
+        }
+
+         function getSessionDetailBySessionId(sessionId) {
+            $('#modal').css('display', 'block');
+            if ($.fn.dataTable.isDataTable('#session-detail')) {
+                $('#session-detail').DataTable().destroy();
+            }
+            $('#session-detail').DataTable({
+                "scrollY": "450px",
+                "scrollX": true,
+                "scrollCollapse": true,
+                "paging": false,
+                bFilter: false,
+                 ajax: {
+                     url: getContextPath() + '/session/session-detail/' + sessionId,
+                     dataSrc: ''
+                 },
+                 columns: [
+                     {
+                         "data" : "userId",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "sessionId",
+                         "orderable" : false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "pageId",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "actionTime",
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "searchKeyword",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "clickCategoryId",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "clickProductId",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "orderCategoryIds",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "orderProductIds",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "payCategoryIds",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     },
+                     {
+                         "data" : "payProductIds",
+                         "orderable": false,
+                         "sClass": "text-center"
+                     }
+                 ]
+            });
+        }
+
+        function getAllSessionTask() {
+            $('#task-modal').css('display', 'block');
+            if ($.fn.dataTable.isDataTable('#all-session-task')) {
+                $('#all-session-task').DataTable().destroy();
+            }
+            $('#all-session-task').DataTable({
+                ajax: {
+                    url: getContextPath() + '/task/tasks?task_type=session分析',
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        "data" : "taskId",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskName",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "createTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "startTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "finishTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskStatus",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskParam",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskId",
+                        "orderable": false,
+                        "sClass": "text-center",
+                        "render" : function (data, type, row, meta) {
+                            if ("完成" == row.taskStatus) {
+                                return "<button onclick='getTaskResultByTaskId(\""+data+"\");' type='button' class='btn btn-outline-success'>查看结果</button>";
+                            } else {
+                                return "<button onclick='getTaskResultByTaskId(\""+data+"\");' type='button' disabled='disabled' class='btn btn-outline-success'>查看结果</button>";
+
+                            }
+                        }
+                    }
+                ]
+            });
+        }
+
+        function  getTaskResultByTaskId(taskId) {
+            $('#task-modal').css('display', 'none');
+            alert(taskId)
+            getSessionASByTaskId(taskId);
+            getTop10CategoryByTaskId(taskId);
+            getTop10CategorySessionByTaskId(taskId);
+            getSessionRandomExtractByTaskId(taskId);
+        }
+
+
+        function getContextPath(){
+            var pathName = document.location.pathname;
+            var index = pathName.substr(1).indexOf("/");
+            var result = pathName.substr(0,index+1);
+            return result;
+        }
+
+        function genData() {
+            var seriesDataTimes = [
+                {name: 's1_s3', value: 0},
+                {name: 's4_s6', value: 0},
+                {name: 's7_s9', value: 0.1},
+                {name: 's10_s30', value: 0},
+                {name: 's30_s60', value: 0.3},
+                {name: 'm1_m3', value: 0.03},
+                {name: 'm3_m10', value: 0.01},
+                {name: 'm10_m30', value: 0.06},
+                {name: 'm30', value: 0.5}
+            ];
+            var seriesDataSteps = [
+                {name: 's1_3', value: 0.09},
+                {name: 's4_6', value: 0.14},
+                {name: 's7_9', value: 0.17},
+                {name: 's10_30', value: 0.6},
+                {name: 's30_60', value: 0.5},
+                {name: 's60', value: 0.04}
+            ];
+            var selectedTimes = {};
+            var selectedSteps = {};
+            $.each(seriesDataTimes, function(idx, obj) {
+                if (obj.value == 0) {
+                    selectedTimes[obj.name] = false;
+                } else {
+                    selectedTimes[obj.name] = true;
+                }
+
+            });
+            $.each(seriesDataSteps, function(idx, obj) {
+                if (obj.value == 0) {
+                    selectedSteps[obj.name] = false;
+                } else {
+                    selectedSteps[obj.name] = true;
+                }
+
+            });
+            return {
+                selectedTimes: selectedTimes,
+                selectedSteps: selectedSteps
+            };
+        }
+    </script>
+</body>
+</html>

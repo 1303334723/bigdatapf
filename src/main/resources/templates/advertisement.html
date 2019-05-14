@@ -1,0 +1,592 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BigdataPF-广告流量</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/normalize.css}" href="../static/css/normalize.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}" href="../static/css/themify-icons.css">
+    <link rel="stylesheet" th:href="@{/css/pe-icon-7-filled.css}" href="../static/css/pe-icon-7-filled.css">
+    <link rel="stylesheet" th:href="@{/css/flag-icon.min.css}" href="../static/css/flag-icon.min.css">
+    <link rel="stylesheet" th:href="@{/css/cs-skin-elastic.css}" href="../static/css/cs-skin-elastic.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+    <link rel="stylesheet" th:href="@{/css/charts/chartist.min.css}" href="../static/css/charts/chartist.min.css">
+    <link rel="stylesheet" th:href="@{/css/lib/vector-map/jqvmap.min.css}" href="../static/css/lib/vector-map/jqvmap.min.css">
+    <link rel="stylesheet" th:href="@{/css/lib/datatable/dataTables.bootstrap.min.css}" href="../static/css/lib/datatable/dataTables.bootstrap.min.css">
+
+    <script th:src="@{/js/vendor/jquery-3.3.1.js}" src="../static/js/vendor/jquery-3.3.1.js"></script>
+    <!-- Scripts -->
+    <script th:src="@{/js/vendor/jquery-2.1.4.min.js}" src="../static/js/vendor/jquery-2.1.4.min.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../static/js/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/jquery.matchHeight.min.js}" src="../static/js/jquery.matchHeight.min.js"></script>
+    <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+    <script th:src="@{/js/echarts.min.js}" src="../static/js/echarts.min.js"></script>
+
+    <script th:src="@{/js/lib/data-table/datatables.min.js}" src="../static/js/lib/data-table/datatables.min.js"></script>
+    <script th:src="@{/js/lib/data-table/dataTables.bootstrap.min.js}" src="../static/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script th:src="@{/js/lib/data-table/dataTables.buttons.min.js}" src="../static/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.bootstrap.min.js}" src="../static/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script th:src="@{/js/lib/data-table/jszip.min.js}" src="../static/js/lib/data-table/jszip.min.js"></script>
+    <script th:src="@{/js/lib/data-table/vfs_fonts.js}" src="../static/js/lib/data-table/vfs_fonts.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.html5.min.js}" src="../static/js/lib/data-table/buttons.html5.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.print.min.js}" src="../static/js/lib/data-table/buttons.print.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.colVis.min.js}" src="../static/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script th:src="@{/js/init/datatables-init.js}" src="../static/js/init/datatables-init.js"></script>
+
+
+<body>
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>
+                        <a th:href="@{/main-page}">
+                            <i class="menu-icon fa fa-laptop"></i>
+                            首页
+                        </a>
+                    </li>
+
+                    <li class="menu-title">统计分析</li><!-- /.menu-title -->
+
+                    <li class="active">
+                        <a th:href="@{/advertisement}">
+                            <i class="menu-icon fa fa-glass"></i>
+                            广告流量
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/session-analysis}">
+                            <i class="menu-icon fa fa-area-chart"></i>
+                            session分析
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/page_convert_rate}">
+                            <i class="menu-icon fa fa-th"></i>
+                            页面单跳转化率
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/hot-goods}">
+                            <i class="menu-icon fa fa-bar-chart"></i>
+                            热门商品
+                        </a>
+                    </li>
+
+                    <li class="menu-title">集群管理</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="http://sparkupgrade1:50070" target=”_blank”>
+                            <i class="menu-icon fa fa-folder"></i>
+                            HDFS
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://sparkupgrade1:8088" target=”_blank”>
+                            <i class="menu-icon fa fa-cogs"></i>
+                            Yarn
+                        </a>
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./"><img th:src="@{/images/logo.png}" src="../static/images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img th:src="@{/images/logo2.png}" src="../static/images/logo2.png" alt="Logo"></a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+
+                        <div class="dropdown for-notification">
+                        </div>
+
+                        <div class="dropdown for-message">
+                        </div>
+                        </div>
+
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" th:src="@{/images/admin.jpg}" src="../static/images/admin.jpg" alt="User Avatar">
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        <!-- Breadcrumbs-->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4" style="padding-top: 6.35px">
+<!--
+                        <form id="select-ad" action="#" method="get" enctype="multipart/form-data" class="form-horizontal">
+-->
+                        <div class="row form-group" style="margin-bottom: 0rem">
+                            <div class="col col-md-3" style="padding-right: 0px; text-align: center; padding-top: 6px;">
+                                <label class=" form-control-label">广告ID：</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <select onchange="selectFunc()" name="select-ad-id" id="select-ad-id" class="form-control">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                </select>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            function selectFunc() {
+                                var optionVal = $('#select-ad-id option:selected').val();
+                                getAdClickTrendByAdId(optionVal);
+                                getAdStatByAdId(optionVal);
+                            }
+                        </script>
+<!--
+                        </form>
+-->
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.breadcrumbs-->
+        <!-- Content -->
+        <div class="content">
+            <div class="animated fadeIn">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">广告点击趋势</h4>
+                                <div class="flot-container" style="height:450px; padding: 0px 0px 0px; margin: 0px">
+                                    <div id="ad_click_trend" style="width:100%;height:450px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /# card -->
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">各城市广告的日点击量</h4>
+                                <div class="flot-container" style="height:500px; padding: 0px 0px 0px; margin: 0px">
+                                    <div id="ad_stat" style="width:100%;height:500px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /# card -->
+                    </div><!-- /# column -->
+                </div><!-- /# row -->
+
+            </div><!-- .animated -->
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+        <!-- Footer -->
+        <footer class="site-footer">
+        </footer>
+        <!-- /.site-footer -->
+    </div>
+    <!-- /#right-panel -->
+
+    <script type="text/javascript">
+        var dataJson = [
+            ["10:24",29],
+            ["10:25",61],
+            ["10:26",50],
+            ["10:27",60],
+            ["10:28",64],
+            ["10:29",52],
+            ["10:30",62],
+            ["10:31",60],
+            ["10:32",68],
+            ["10:34",61],
+            ["10:35",56],
+            ["10:36",63],
+            ["10:37",60],
+            ["10:38",111],
+            ["10:39",309],
+            ["10:40",206],
+            ["10:41",137],
+            ["10:42",128],
+            ["10:43",85],
+            ["10:44",94],
+            ["10:45",71],
+            ["10:46",106],
+            ["10:47",84],
+            ["10:48",93],
+            ["10:49",85],
+            ["10:50",73],
+            ["10:51",83],
+            ["10:52",125],
+            ["10:53",107],
+            ["10:54",82],
+            ["10:55",44],
+            ["10:56",72],
+            ["10:57",106],
+            ["10:58",107],
+            ["10:59",66],
+            ["11:00",91],
+            ["11:01",92],
+            ["11:02",55],
+            ["11:03",50],
+            ["11:04",67],
+            ["11:05",57],
+            ["11:06",58],
+            ["11:07",55],
+            ["11:08",62],
+            ["11:09",72],
+            ["11:10",56],
+            ["11:11",34]]
+        var adClickTrend = echarts.init(document.getElementById('ad_click_trend'));
+        adClickTrend.setOption({
+            grid: {
+                top: '3%',
+                left: '1%',
+                right: '11%',
+                bottom: '8%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                data: dataJson.map(function (item) {
+                    return item[0];
+                })
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                }
+            },
+            dataZoom: [{
+                startValue: '2014-06-01'
+            }, {
+                type: 'inside'
+            }],
+            visualMap: {
+                top: 10,
+                right: 10,
+                pieces: [{
+                    gt: 0,
+                    lte: 50,
+                    color: '#096'
+                }, {
+                    gt: 50,
+                    lte: 100,
+                    color: '#ffde33'
+                }, {
+                    gt: 100,
+                    lte: 150,
+                    color: '#ff9933'
+                }, {
+                    gt: 150,
+                    lte: 200,
+                    color: '#cc0033'
+                }, {
+                    gt: 200,
+                    lte: 300,
+                    color: '#660099'
+                }, {
+                    gt: 300,
+                    color: '#7e0023'
+                }],
+                outOfRange: {
+                    color: '#999'
+                }
+            },
+            series: {
+                name: '点击量',
+                type: 'line',
+                data: dataJson.map(function (item) {
+                    return item[1];
+                }),
+                markLine: {
+                    silent: true,
+                    data: [{
+                        yAxis: 50
+                    }, {
+                        yAxis: 100
+                    }, {
+                        yAxis: 150
+                    }, {
+                        yAxis: 200
+                    }, {
+                        yAxis: 300
+                    }]
+                }
+            }
+        });
+
+        $(document).ready(function() {
+            getAdClickTrendByAdId(0);
+            getAdStatByAdId(0);
+        } );
+
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S": this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+
+        function getAdStatByAdId(adId) {
+
+            $.ajax({
+                url: getContextPath() + '/ad/ad-stat/' + adId,
+                type: 'GET',
+                dataType: 'json',
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("getAdClickTrendByAdId error");
+            }
+            function succFunction(data) {
+                var cityClickCount = [];
+                $.each(data, function (idx, obj) {
+                    var cityName = null;
+                    switch (obj.city) {
+                        case "Jingzhou":
+                            cityName = "荆州市";
+                            break;
+                        case "Suzhou":
+                            cityName = "苏州市";
+                            break;
+                        case "Nanjing":
+                            cityName = "南京市";
+                            break;
+                        case "Shijiazhuang":
+                            cityName = "石家庄市";
+                            break;
+                        case "Zhengzhou":
+                            cityName = "郑州市";
+                            break;
+                        case "Tangshan":
+                            cityName = "唐山市";
+                            break;
+                        case "Luoyang":
+                            cityName = "洛阳市";
+                            break;
+                        case "Xiangtan":
+                            cityName = "湘潭市";
+                            break;
+                        case "Changsha":
+                            cityName = "长沙市";
+                            break;
+                        case "Wuhan":
+                            cityName = "武汉市";
+                            break;
+                    }
+                    cityClickCount.push({
+                        name: cityName,
+                        value: obj.clickCount
+                    });
+                });
+
+                var uploadedDataURL = "map/data-1519188124693-rkro_O5vz.json";
+                var adStat = echarts.init(document.getElementById('ad_stat'));
+                adStat.showLoading();
+                var cityname=[];
+                $.get(uploadedDataURL, function (geoJson) {
+                    adStat.hideLoading();
+                    echarts.registerMap('chinacity', geoJson);
+                    var mapFeatures = echarts.getMap('chinacity').geoJson.features;
+                    mapFeatures.forEach(function (v) {
+                        // 地区名称
+                        var name= v.properties.name;
+                        cityname.push(name);
+                    });
+                    adStat.setOption(option = {
+                        visualMap: {
+                            show: true,
+                            type:'piecewise',
+                            pieces:[
+                                {min: 2000}, // 不指定 max，表示 max 为无限大（Infinity）。
+                                {min: 1200, max: 2000},
+                                {min: 700, max: 1200,},
+                                {min: 350, max: 700},
+                                {min: 150, max: 350},
+                                {min:50,max: 150},
+                                {max:50}// 不指定 min，表示 min 为无限大（-Infinity）。
+                            ],
+                            showLabel:true,
+                            left: 'right',
+                            top: 'bottom',
+                            text: ['高    (次/日)', '低    (次/日)'], // 文本，默认为数值文本
+                            calculable: true,
+                            inRange: {
+                                color: ['#ffc0cb', '#800080'] // 红紫 ×
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{b}<br/>{c} (次/日)'
+                        },
+                        series: [{
+                            name: '点击量',
+                            type: 'map',
+                            mapType: 'chinacity',
+                            label: {
+                                normal: {
+                                    show: false
+                                }
+                            },
+                            roam: true,
+                            data: cityClickCount
+                        }]
+                    });
+                });
+            }
+        }
+
+        function getAdClickTrendByAdId(adId) {
+            $.ajax({
+                url: getContextPath() + '/ad/ad-click-trend/' + adId,
+                type: 'GET',
+                dataType: 'json',
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("getAdClickTrendByAdId error");
+            }
+            function succFunction(data) {
+                var clickTrendData = [];
+                $.each(data, function (idx, obj) {
+                    clickTrendData.push([obj.hour + ":" + obj.minute, obj.clickCount]);
+                });
+                adClickTrend.setOption({
+                    xAxis: {
+                        data: clickTrendData.map(function (item) {
+                            return item[0];
+                        })
+                    },
+                    series: {
+                        data: clickTrendData.map(function (item) {
+                            return item[1];
+                        })
+                    }
+                });
+            }
+
+            /*if ($.fn.dataTable.isDataTable('#ad_click_trend_table')) {
+                $('#ad_click_trend_table').DataTable().destroy();
+            }
+            $('#ad_click_trend_table').DataTable({
+                ajax: {
+                    url: getContextPath() + '/ad/ad-click-trend/' + adId,
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        "data" : "date",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "hour",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "minute",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "adId",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "clickCount",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    }
+                ]
+            });*/
+        }
+
+
+
+        function getContextPath(){
+            var pathName = document.location.pathname;
+            var index = pathName.substr(1).indexOf("/");
+            var result = pathName.substr(0,index+1);
+            return result;
+        }
+    </script>
+</body>
+</html>

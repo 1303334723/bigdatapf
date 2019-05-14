@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.behavioranalysis.mapper.AreaTop3ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.behavioranalysis.pojo.AreaTop3Product" >
+    <result column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="area_level" property="areaLevel" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="city_infos" property="cityInfos" jdbcType="VARCHAR" />
+    <result column="click_count" property="clickCount" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_status" property="productStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, area, area_level, product_id, city_infos, click_count, product_name, product_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.behavioranalysis.pojo.AreaTop3ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from area_top3_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.behavioranalysis.pojo.AreaTop3ProductExample" >
+    delete from area_top3_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.behavioranalysis.pojo.AreaTop3Product" >
+    insert into area_top3_product (task_id, area, area_level, 
+      product_id, city_infos, click_count, 
+      product_name, product_status)
+    values (#{taskId,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR}, #{areaLevel,jdbcType=VARCHAR}, 
+      #{productId,jdbcType=INTEGER}, #{cityInfos,jdbcType=VARCHAR}, #{clickCount,jdbcType=INTEGER}, 
+      #{productName,jdbcType=VARCHAR}, #{productStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.behavioranalysis.pojo.AreaTop3Product" >
+    insert into area_top3_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="areaLevel != null" >
+        area_level,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="cityInfos != null" >
+        city_infos,
+      </if>
+      <if test="clickCount != null" >
+        click_count,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productStatus != null" >
+        product_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null" >
+        #{areaLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="cityInfos != null" >
+        #{cityInfos,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productStatus != null" >
+        #{productStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.behavioranalysis.pojo.AreaTop3ProductExample" resultType="java.lang.Integer" >
+    select count(*) from area_top3_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update area_top3_product
+    <set >
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaLevel != null" >
+        area_level = #{record.areaLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productId != null" >
+        product_id = #{record.productId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityInfos != null" >
+        city_infos = #{record.cityInfos,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clickCount != null" >
+        click_count = #{record.clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productStatus != null" >
+        product_status = #{record.productStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update area_top3_product
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      area = #{record.area,jdbcType=VARCHAR},
+      area_level = #{record.areaLevel,jdbcType=VARCHAR},
+      product_id = #{record.productId,jdbcType=INTEGER},
+      city_infos = #{record.cityInfos,jdbcType=VARCHAR},
+      click_count = #{record.clickCount,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      product_status = #{record.productStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

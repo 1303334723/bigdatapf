@@ -1,0 +1,1017 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BigdataPF-热门商品统计</title>
+    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" th:href="@{/css/normalize.css}" href="../static/css/normalize.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}" href="../static/css/themify-icons.css">
+    <link rel="stylesheet" th:href="@{/css/pe-icon-7-filled.css}" href="../static/css/pe-icon-7-filled.css">
+    <link rel="stylesheet" th:href="@{/css/flag-icon.min.css}" href="../static/css/flag-icon.min.css">
+    <link rel="stylesheet" th:href="@{/css/cs-skin-elastic.css}" href="../static/css/cs-skin-elastic.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+
+    <link rel="stylesheet" th:href="@{/css/charts/chartist.min.css}" href="../static/css/charts/chartist.min.css">
+    <link rel="stylesheet" th:href="@{/css/lib/vector-map/jqvmap.min.css}" href="../static/css/lib/vector-map/jqvmap.min.css">
+    <link rel="stylesheet" th:href="@{/css/lib/datatable/dataTables.bootstrap.min.css}" href="../static/css/lib/datatable/dataTables.bootstrap.min.css">
+
+    <script th:src="@{/js/vendor/jquery-3.3.1.js}" src="../static/js/vendor/jquery-3.3.1.js"></script>
+    <!-- Scripts -->
+    <script th:src="@{/js/vendor/jquery-2.1.4.min.js}" src="../static/js/vendor/jquery-2.1.4.min.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../static/js/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/jquery.matchHeight.min.js}" src="../static/js/jquery.matchHeight.min.js"></script>
+    <script th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+    <script th:src="@{/js/echarts.min.js}" src="../static/js/echarts.min.js"></script>
+
+    <script th:src="@{/js/lib/data-table/datatables.min.js}" src="../static/js/lib/data-table/datatables.min.js"></script>
+    <script th:src="@{/js/lib/data-table/dataTables.bootstrap.min.js}" src="../static/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script th:src="@{/js/lib/data-table/dataTables.buttons.min.js}" src="../static/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.bootstrap.min.js}" src="../static/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script th:src="@{/js/lib/data-table/jszip.min.js}" src="../static/js/lib/data-table/jszip.min.js"></script>
+    <script th:src="@{/js/lib/data-table/vfs_fonts.js}" src="../static/js/lib/data-table/vfs_fonts.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.html5.min.js}" src="../static/js/lib/data-table/buttons.html5.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.print.min.js}" src="../static/js/lib/data-table/buttons.print.min.js"></script>
+    <script th:src="@{/js/lib/data-table/buttons.colVis.min.js}" src="../static/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script th:src="@{/js/init/datatables-init.js}" src="../static/js/init/datatables-init.js"></script>
+
+    <script th:src="@{/laydate/laydate.js}" src="../static/laydate/laydate.js"></script>
+
+    <style type="text/css">
+        .modal {
+            position: fixed;
+            top: 10px;
+            right: 30px;
+            bottom: 10px;
+            left: 30px;
+            height: 100%;
+            display: none;
+        }
+        .modal-header {
+            display: flex;
+            padding: 0.3rem;
+        }
+        .modal-body {
+            padding: 0.3rem;
+        }
+    </style>
+
+
+<body>
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+
+                    <li>
+                        <a th:href="@{/main-page}">
+                            <i class="menu-icon fa fa-laptop"></i>
+                            首页
+                        </a>
+                    </li>
+
+                    <li class="menu-title">统计分析</li><!-- /.menu-title -->
+
+                    <li>
+                        <a th:href="@{/advertisement}">
+                            <i class="menu-icon fa fa-glass"></i>
+                            广告流量
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/session-analysis}">
+                            <i class="menu-icon fa fa-area-chart"></i>
+                            session分析
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/page_convert_rate}">
+                            <i class="menu-icon fa fa-th"></i>
+                            页面单跳转化率
+                        </a>
+                    </li>
+
+                    <li class="active">
+                        <a th:href="@{/hot-goods}">
+                            <i class="menu-icon fa fa-bar-chart"></i>
+                            热门商品
+                        </a>
+                    </li>
+
+                    <li class="menu-title">集群管理</li><!-- /.menu-title -->
+
+                    <li>
+                        <a href="http://sparkupgrade1:50070" target=”_blank”>
+                            <i class="menu-icon fa fa-folder"></i>
+                            HDFS
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://sparkupgrade1:8088" target=”_blank”>
+                            <i class="menu-icon fa fa-cogs"></i>
+                            Yarn
+                        </a>
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside>
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        <header id="header" class="header">
+            <div class="top-left">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./"><img th:src="@{/images/logo.png}" src="../static/images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img th:src="@{/images/logo2.png}" src="../static/images/logo2.png" alt="Logo"></a>
+                    <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
+                </div>
+            </div>
+            <div class="top-right">
+                <div class="header-menu">
+                    <div class="header-left">
+                        <button class="search-trigger"><i class="fa fa-search"></i></button>
+                        <div class="form-inline">
+                            <form class="search-form">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
+                            </form>
+                        </div>
+
+                        <div class="dropdown for-notification">
+                            <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="count bg-danger">3</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="notification">
+                                <p class="red">You have 3 Notification</p>
+                                <a class="dropdown-item media" href="#">
+                                    <i class="fa fa-check"></i>
+                                    <p>Server #1 overloaded.</p>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <i class="fa fa-info"></i>
+                                    <p>Server #2 overloaded.</p>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <i class="fa fa-warning"></i>
+                                    <p>Server #3 overloaded.</p>
+                                </a>
+                            </div>-->
+                        </div>
+
+                        <div class="dropdown for-message">
+                            <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-envelope"></i>
+                                <span class="count bg-primary">4</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="message">
+                                <p class="red">You have 4 Mails</p>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" th:src="@{/images/avatar/1.jpg}" src="../static/images/avatar/1.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Jonathan Smith</span>
+                                        <span class="time float-right">Just now</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" th:src="@{/images/avatar/2.jpg}" src="../static/images/avatar/2.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Jack Sanders</span>
+                                        <span class="time float-right">5 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" th:src="@{/images/avatar/3.jpg}" src="../static/images/avatar/3.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Cheryl Wheeler</span>
+                                        <span class="time float-right">10 minutes ago</span>
+                                        <p>Hello, this is an example msg</p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item media" href="#">
+                                    <span class="photo media-left"><img alt="avatar" th:src="@{/images/avatar/4.jpg}" src="../static/images/avatar/4.jpg"></span>
+                                    <div class="message media-body">
+                                        <span class="name float-left">Rachel Santos</span>
+                                        <span class="time float-right">15 minutes ago</span>
+                                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>-->
+                    </div>
+
+                    <div class="user-area dropdown float-right">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="user-avatar rounded-circle" th:src="@{/images/admin.jpg}" src="../static/images/admin.jpg" alt="User Avatar">
+                        </a>
+
+                        <div class="user-menu dropdown-menu">
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+
+                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- /#header -->
+        <!-- Breadcrumbs-->
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1 id="yesteDay">1970-01-01</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="page-header float-right">
+                            <div class="page-title">
+                                <ol class="breadcrumb text-right">
+                                    <li><button onclick='showAddTaskWindow();' type="button" class="btn btn-outline-primary">+ 新建task</button></li>
+                                    <li><button onclick='getAllProductTask();' type="button" class="btn btn-outline-success"> task列表</button></li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.breadcrumbs-->
+        <!-- Content -->
+        <div class="content">
+            <div class="animated fadeIn">
+
+                <div class="row">
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">华东Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="hua-dong" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">西北Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="xi-bei" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">华南Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="hua-nan" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">华北Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="hua-bei" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">东北Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="dong-bei" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">华中Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="hua-zhong" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12 col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-3">西南Top3商品</h4>
+                                <div class="flot-container" style="height:250px;">
+                                    <div id="xi-nan" style="width:100%;height:250px;"></div>
+                                </div>
+                            </div>
+                        </div><!-- /.card -->
+                    </div>
+
+                </div>
+
+
+            </div><!-- .animated -->
+        </div>
+        <!-- /.content -->
+        <div class="clearfix"></div>
+        <!-- Footer -->
+        <footer class="site-footer">
+        </footer>
+        <!-- /.site-footer -->
+    </div>
+    <!-- /#right-panel -->
+
+    <!-- add task 模态窗start -->
+    <div id="add-task-modal" class="modal" style="top: 80px; display: none;right: 400px;left: 400px;">
+        <div class="modal-content">
+            <header class="modal-header" style="padding: 0.8rem;">
+                <h4 id="modal-title">新建热门商品统计task</h4>
+                <span id="add-task-close-modal" class="close">×</span>
+            </header>
+            <div class="modal-body">
+                <div class="col-lg-6" style="max-width: 100%;">
+                    <form id="add-task-form" action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <input type="hidden" id="task_type" value="热门商品统计" name="task_type"/>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Task Name</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="task_name" name="task_name" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Date Range</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text" id="dateRange" name="dateRange" placeholder=" - " class="form-control">
+                            </div>
+                        </div>
+
+                        <div>
+                            <button id="submit-task" type="submit" class="btn btn-lg btn-info btn-block">
+                                <span id="submit-word">提交执行</span>
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <script>
+        //日期范围
+        laydate.render({
+            elem: '#dateRange',
+            range: true
+        });
+
+        function showAddTaskWindow() {
+            $("#add-task-modal").css("display", "block");
+        }
+
+        $('#submit-task').click(function () {
+            $('#submit-task').attr('disabled', true);
+            $('#submit-word').html("正在提交。。。");
+            var data = $('#add-task-form').serialize();
+            var submitData = decodeURIComponent(data, true);
+            $.ajax({
+                url: getContextPath() + '/task/producttask/add',
+                data: submitData,
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("addProductTask error");
+                // 出现异常
+            }
+            function succFunction(data) {
+                // ajax
+                $('#submit-word').html("后台已开始执行该任务");
+                setTimeout(
+                    function() {
+                        $("#add-task-modal").css("display", "none");
+                        // 将add-task-modal新建任务窗口初始化
+                        $("#task_name").val("");
+                        $("#dateRange").val("");
+                        $("#submit-word").html("提交执行");
+                        $('#submit-task').attr('disabled', false);
+                    },
+                    2000);
+            }
+        });
+
+    </script>
+    <!-- add task 模态窗end -->
+
+    <!-- task详情模态窗start -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h4 id="task-modal-title">热门商品统计task</h4>
+                <span id="task-close-modal" class="close">×</span>
+            </header>
+            <div class="modal-body">
+                <table id="all-product-task" class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>TaskId</th>
+                        <th>TaskName</th>
+                        <th>CreateTime</th>
+                        <th>StartTime</th>
+                        <th>FinishTime</th>
+                        <th>TaskStatus</th>
+                        <th>TaskParam</th>
+                        <th>Oprate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- task详情模态窗end -->
+
+    <script type="text/javascript">
+        // 华东
+        var huaDong = echarts.init(document.getElementById('hua-dong'));
+        huaDong.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        // 西北
+        var xiBei = echarts.init(document.getElementById('xi-bei'));
+        xiBei.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        // 华南
+        var huaNan = echarts.init(document.getElementById('hua-nan'));
+        huaNan.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        // 华北
+        var huaBei = echarts.init(document.getElementById('hua-bei'));
+        huaBei.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        // 东北
+        var dongBei = echarts.init(document.getElementById('dong-bei'));
+        dongBei.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        // 华中
+        var huaZhong = echarts.init(document.getElementById('hua-zhong'));
+        huaZhong.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        // 西南
+        var xiNan = echarts.init(document.getElementById('xi-nan'));
+        xiNan.setOption({
+            color: ['#3398DB'],
+            xAxis: {
+                type: 'category',
+                data: ['product1', 'product2', 'product3'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            },
+            yAxis: {
+                type: 'value'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            grid: {
+                top: '3%',
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            series: [{
+                data: [1500, 1000, 500],
+                barWidth: '50%',
+                type: 'bar',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'inside'
+                    }
+                }
+            }]
+        });
+
+        $(document).ready(function() {
+            $('#all-product-task').DataTable({
+            });
+            var today = new Date();
+            var oneday = 1000 * 60 * 60 * 24;
+            var begindate = new Date(today - oneday).Format("yyyyMMdd");
+            var yesteDay = new Date(today - oneday).Format("yyyy-MM-dd");
+            $('#yesteDay').html(yesteDay);
+
+            getAreaTop3ProductByTaskId(begindate);
+
+        } );
+
+        $("#task-close-modal").click(function () {
+            $("#task-modal").css("display", "none");
+        });
+
+        $("#add-task-close-modal").click(function () {
+            $("#add-task-modal").css("display", "none");
+        });
+
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1,
+                "d+": this.getDate(),
+                "h+": this.getHours(),
+                "m+": this.getMinutes(),
+                "s+": this.getSeconds(),
+                "q+": Math.floor((this.getMonth() + 3) / 3),
+                "S": this.getMilliseconds()
+            };
+            if (/(y+)/.test(fmt))
+                fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        };
+
+        function getAreaTop3ProductByTaskId(begindate) {
+            $.ajax({
+                url: getContextPath() + '/product/area-top3-product/' + begindate,
+                type: 'GET',
+                dataType: 'json',
+                error: errFunction,
+                success: succFunction
+            });
+            function errFunction() {
+                alert("getAreaTop3ProductByTaskId error");
+            }
+            function succFunction(data) {
+                var huadongProduct = [];
+                var huadongclickCount = [];
+                var xibeiProduct = [];
+                var xibeiclickCount = [];
+                var huananProduct = [];
+                var huananclickCount = [];
+                var huabeiProduct = [];
+                var huabeiclickCount = [];
+                var dongbeiProduct = [];
+                var dongbeiclickCount = [];
+                var huazhongProduct = [];
+                var huazhongclickCount = [];
+                var xinanProduct = [];
+                var xinanclickCount = [];
+
+                $.each(data, function (idx, obj) {
+                    switch (obj.area){
+                        case "华东":
+                            huadongProduct.push(obj.productName);
+                            huadongclickCount.push(obj.clickCount);
+                            break;
+                        case "西北":
+                            xibeiProduct.push(obj.productName);
+                            xibeiclickCount.push(obj.clickCount);
+                            break;
+                        case "华南":
+                            huananProduct.push(obj.productName);
+                            huananclickCount.push(obj.clickCount);
+                            break;
+                        case "华北":
+                            huabeiProduct.push(obj.productName);
+                            huabeiclickCount.push(obj.clickCount);
+                            break;
+                        case "东北":
+                            dongbeiProduct.push(obj.productName);
+                            dongbeiclickCount.push(obj.clickCount);
+                            break;
+                        case "华中":
+                            huazhongProduct.push(obj.productName);
+                            huazhongclickCount.push(obj.clickCount);
+                            break;
+                        case "西南":
+                            xinanProduct.push(obj.productName);
+                            xinanclickCount.push(obj.clickCount);
+                            break;
+                    }
+
+                });
+                // 华东
+                huaDong.setOption({
+                    xAxis: {
+                        data: huadongProduct
+                    },
+                    series: [{
+                        data: huadongclickCount
+                    }]
+                });
+                // 西北
+                xiBei.setOption({
+                    xAxis: {
+                        data: xibeiProduct
+                    },
+                    series: [{
+                        data: xibeiclickCount
+                    }]
+                });
+
+                // 华南
+                huaNan.setOption({
+                    xAxis: {
+                        data: huananProduct
+                    },
+                    series: [{
+                        data: huananclickCount
+                    }]
+                });
+
+                // 华北
+                huaBei.setOption({
+                    xAxis: {
+                        data: huabeiProduct
+                    },
+                    series: [{
+                        data: huabeiclickCount
+                    }]
+                });
+
+                // 东北
+                dongBei.setOption({
+                    xAxis: {
+                        data: dongbeiProduct
+
+                    },
+                    series: [{
+                        data: dongbeiclickCount
+                    }]
+                });
+
+                // 华中
+                huaZhong.setOption({
+                    xAxis: {
+                        data: huazhongProduct
+                    },
+                    series: [{
+                        data: huazhongclickCount
+                    }]
+                });
+
+                // 西南
+                xiNan.setOption({
+                    xAxis: {
+                        data: xinanProduct
+
+                    },
+                    series: [{
+                        data: xinanclickCount
+                    }]
+                });
+            }
+        }
+
+        function getAllProductTask() {
+            $('#task-modal').css('display', 'block');
+            if ($.fn.dataTable.isDataTable('#all-product-task')) {
+                $('#all-product-task').DataTable().destroy();
+            }
+            $('#all-product-task').DataTable({
+                ajax: {
+                    url: getContextPath() + '/task/tasks?task_type=热门商品统计',
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        "data" : "taskId",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskName",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "createTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "startTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "finishTime",
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskStatus",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskParam",
+                        "orderable": false,
+                        "sClass": "text-center"
+                    },
+                    {
+                        "data" : "taskId",
+                        "orderable": false,
+                        "sClass": "text-center",
+                        "render" : function (data, type, row, meta) {
+                            if ("完成" == row.taskStatus) {
+                                return "<button onclick='getTaskResultByTaskId(\""+data+"\");' type='button' class='btn btn-outline-success'>查看结果</button>";
+                            } else {
+                                return "<button onclick='getTaskResultByTaskId(\""+data+"\");' type='button' disabled='disabled' class='btn btn-outline-success'>查看结果</button>";
+
+                            }
+                        }
+                    }
+                ]
+            });
+        }
+
+        function  getTaskResultByTaskId(taskId) {
+            $('#task-modal').css('display', 'none');
+            getAreaTop3ProductByTaskId(taskId);
+        }
+
+        function getContextPath(){
+            var pathName = document.location.pathname;
+            var index = pathName.substr(1).indexOf("/");
+            var result = pathName.substr(0,index+1);
+            return result;
+        }
+    </script>
+</body>
+</html>
